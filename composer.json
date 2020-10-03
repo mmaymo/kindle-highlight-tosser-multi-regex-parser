@@ -1,0 +1,10 @@
+{
+    "name": "mmaymo/kindle-highlight-tosser-multi-regex-parser",
+    "description": "Parser for the kindle-highlight-tosser to use with spanish, italian, portuguese, german, french, dutch and english",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"KHTMultiRegexParser\\": "src/"}
+    },
+    "require": {}
+}
