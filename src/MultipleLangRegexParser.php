@@ -7,6 +7,8 @@ namespace KHTMultiRegexParser;
 use DateTime;
 use KindleHighlightTosser\Infrastructure\Support\Bom;
 use KindleHighlightTosser\Infrastructure\Parser\MyClippings\RawClippingParser;
+use KindleHighlightTosser\Infrastructure\Parser\MyClippings\ParsedRawClipping;
+use KindleHighlightTosser\Infrastructure\Parser\MyClippings\CouldNotParseRawClipping;
 
 class MultipleLangRegexParser implements RawClippingParser
 {
