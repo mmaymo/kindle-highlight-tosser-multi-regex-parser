@@ -20,12 +20,12 @@ class MultipleLangRegexParser implements RawClippingParser
     const HIGHLIGHT = "highlight";
     const MONTHS_TRANSLATED = [
         ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-        ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
+        ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
         ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
         ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
         ['Januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-        ["januar", "februar", "märz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"],
-        ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+        ['januar', 'februar', 'märz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember'],
+        ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
     ];
     const MONTHS_KEY = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     private $year;
@@ -80,7 +80,12 @@ class MultipleLangRegexParser implements RawClippingParser
         );
     }
 
-    private function translateMonth($month):string
+    /**
+     * Translates the month name to english so can be accepted by DateTime
+     * @param string $month
+     * @return string
+     */
+    private function translateMonth(string $month):string
     {
         $monthsEnglish = self::MONTHS_KEY;
         $translatedMonth = $monthsEnglish[0];
@@ -98,11 +103,11 @@ class MultipleLangRegexParser implements RawClippingParser
     }
 
     /**
-     *
+     * Forms the DateTime object depending on the hour type is sent (12h/24h)
      * @param string $dateTimeHourType
      * @return DateTime|false
      */
-    private function formDate($dateTimeHourType):DateTime
+    private function formDate(string $dateTimeHourType):DateTime
     {
         return $dateTimeHourType ? DateTime::createFromFormat(
             'Y F j g i s A',
@@ -131,17 +136,19 @@ class MultipleLangRegexParser implements RawClippingParser
     }
 
     /**
-     * @param $monthDay
+     * Sets the month taking it from the right place, some translations misplace it
+     * @param array $monthDay
      */
-    private function setMonth($monthDay): void
+    private function setMonth(array $monthDay): void
     {
         $this->month = strlen($monthDay[1][0]) > 2 ? $this->translateMonth($monthDay[1][0]) : $this->translateMonth($monthDay[2][0]);
     }
 
     /**
-     * @param $monthDay
+     * Sets the day taking it from the right place, some translations misplace it
+     * @param array $monthDay
      */
-    private function setDay($monthDay): void
+    private function setDay(array $monthDay): void
     {
         $this->day = strlen($monthDay[1][0]) > 2 ? $monthDay[2][0] : $monthDay[1][0];
     }
