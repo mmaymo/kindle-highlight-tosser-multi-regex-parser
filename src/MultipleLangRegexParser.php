@@ -52,7 +52,6 @@ class MultipleLangRegexParser implements RawClippingParser
         $publicationTitle = !empty($matches[2][0])?$matches[2][0]: $matches[4][0];
         $publicationAuthor = !empty($matches[3][0])?$matches[3][0]: "unknown";
         $publicationTitle = Bom::remove($publicationTitle);
-        $locationType = "Location";
         $locationFrom = $location[1][0];
         $locationTo = $location[2][0] ?? $locationFrom;
         $this->year = $matches[5][0];
