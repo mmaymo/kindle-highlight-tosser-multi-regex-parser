@@ -1,5 +1,5 @@
 # kindle-highlight-tosser-multi-regex-parser
-Parser for the kindle-highlight-tosser to use with spanish, italian, portuguese, german, french, dutch and english.
+Parser for the kindle-highlight-tosser to use with Spanish, Italian, Portuguese, German, French, Dutch and English.
 
 ## Getting started
 This extension allows you to import Kindle clippings with the kindle-highlight-tosser of the following languages:
@@ -22,20 +22,11 @@ To use as an extension for the kindle-hightlight-tosser create the `di-ext.php` 
 declare(strict_types=1);
 
 use KHTMultiRegexParser\MultipleLangRegexParser;
-use KindleHighlightTosser\Infrastructure\Parser\DataSourceParser;
-use KindleHighlightTosser\Infrastructure\Parser\MyClippings\MyClippingsParser;
 use KindleHighlightTosser\Infrastructure\Parser\MyClippings\RawClippingParser;
-use Psr\Container\ContainerInterface;
-
-$sleekDbStoreDirPath = __DIR__ . '/../sleekdb';
 
 return [
     RawClippingParser::class =>
-        fn() => new MultipleLangRegexParser(),
-    DataSourceParser::class =>
-        fn(ContainerInterface $c) => new MyClippingsParser(
-            $c->get(RawClippingParser::class)
-        ),
+        fn() => new MultipleLangRegexParser()
 ];
 ```
 
