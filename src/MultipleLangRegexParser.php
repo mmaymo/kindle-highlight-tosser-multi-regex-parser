@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace KHTMultiRegexParser;
 
 use DateTime;
+use KindleHighlightTosser\Application\Clipping;
 use KindleHighlightTosser\Infrastructure\Support\Bom;
 use KindleHighlightTosser\Infrastructure\Parser\MyClippings\RawClippingParser;
 use KindleHighlightTosser\Infrastructure\Parser\MyClippings\ParsedRawClipping;
@@ -35,7 +36,7 @@ class MultipleLangRegexParser implements RawClippingParser
     private $minute;
     private $second;
 
-    public function execute(string $clippingContent): ParsedRawClipping
+    public function execute(string $clippingContent): Clipping
     {
         preg_match_all(self::FIX_PARTS_REGEX, $clippingContent, $matches);
 
@@ -68,12 +69,11 @@ class MultipleLangRegexParser implements RawClippingParser
 
         $content = Bom::remove($matches[10][0]);
 
-        return new ParsedRawClipping(
+        return new Clipping(
             $type,
             $content,
             $publicationTitle,
             $publicationAuthor,
-            $locationType,
             (int)$locationFrom,
             (int)$locationTo,
             $dateTime->format('U')
